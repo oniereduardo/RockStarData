@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "name": "apk_test (Flutter)",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}
