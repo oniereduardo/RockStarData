@@ -16,7 +16,8 @@ class RegisterPage extends StatelessWidget {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is UserRegistred) {
-            context.pushReplacement('/login');
+            context.go('/login');
+            Future.delayed(Duration(seconds: 1));
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 behavior: SnackBarBehavior.floating,

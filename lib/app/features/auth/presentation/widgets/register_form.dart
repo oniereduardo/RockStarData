@@ -414,59 +414,68 @@ class RegisterForm extends StatelessWidget {
                   const SizedBox(height: 24),
 
                   // Botón de Iniciar Sesión
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (markASRead.value == false) {
-                          EasyLoadingHelper.showToastInfo(
-                              'Verificar términos y condiciones');
-                        } else {
-                          if (_formKey.currentState!.validate()) {
-                            context.read<AuthBloc>().add(
-                                  RegisterRequested(
-                                    name: _nameController.text,
-                                    lastName: _lastNameController.text,
-                                    email: _emailController.text,
-                                    password: _passwordController.text,
-                                    phoneNumber:
-                                        _hasValidData(_phoneController.text)
-                                            ? _phoneController.text
-                                            : '',
-                                    // address:
-                                    //     _hasValidData(_directionController.text)
-                                    //         ? _directionController.text
-                                    //         : '',
-                                    // locality:
-                                    //     _hasValidData(_cityController.text)
-                                    //         ? _cityController.text
-                                    //         : '',
-                                    // country:
-                                    //     _hasValidData(_countryController.text)
-                                    //         ? _countryController.text
-                                    //         : '',
+                  BlocBuilder<AuthBloc, AuthState>(
+                    builder: (context, state) {
+                      return SizedBox(
+                        width: 60.0.wp(context),
+                        height: 6.0.hp(context),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (markASRead.value == false) {
+                              EasyLoadingHelper.showToastInfo(
+                                  'Verificar términos y condiciones');
+                            } else {
+                              if (_formKey.currentState!.validate()) {
+                                context.read<AuthBloc>().add(
+                                      RegisterRequested(
+                                        name: _nameController.text,
+                                        lastName: _lastNameController.text,
+                                        email: _emailController.text,
+                                        password: _passwordController.text,
+                                        phoneNumber:
+                                            _hasValidData(_phoneController.text)
+                                                ? _phoneController.text
+                                                : '',
+                                        // address:
+                                        //     _hasValidData(_directionController.text)
+                                        //         ? _directionController.text
+                                        //         : '',
+                                        // locality:
+                                        //     _hasValidData(_cityController.text)
+                                        //         ? _cityController.text
+                                        //         : '',
+                                        // country:
+                                        //     _hasValidData(_countryController.text)
+                                        //         ? _countryController.text
+                                        //         : '',
+                                      ),
+                                    );
+                              }
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF4A148C),
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            elevation: 4,
+                          ),
+                          child: state is AuthLoading
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 2,
+                                )
+                              : const Text(
+                                  'Continuar',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                );
-                          }
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4A148C),
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                                ),
                         ),
-                        elevation: 4,
-                      ),
-                      child: const Text(
-                        'Continuar',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 24),
 

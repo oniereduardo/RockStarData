@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:apk_test/app/app_test.dart';
 import 'package:apk_test/app/features/auth/index.dart';
-import 'package:apk_test/app/features/shared/index.dart';
 import 'package:apk_test/app/injection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,6 @@ void main() async {
             BlocProvider<RouterCubit>(create: (context) => sl()),
             BlocProvider(
                 create: (context) => sl<AuthBloc>()..add(CheckAuthStatus())),
-            BlocProvider(create: (context) => sl<NavigationBloc>())
           ],
           child: const AppTest(),
         ),
@@ -43,17 +41,5 @@ void main() async {
         ),
       ),
     );
-  }
-}
-
-/// A simple override used in debug to allow self-signed/insecure certificates.
-/// Remove or guard this for production builds.
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    final client = super.createHttpClient(context);
-    client.badCertificateCallback =
-        (X509Certificate cert, String host, int port) => true;
-    return client;
   }
 }

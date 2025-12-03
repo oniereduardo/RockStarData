@@ -14,16 +14,15 @@ class LoginPage extends StatelessWidget {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
-            context.pushReplacement('/home');
+            context.go('/home');
           }
           if (state is AuthFailure) {
-            EasyLoadingHelper.showError(state.message);
+            EasyLoadingHelper.showToastError(state.message);
           }
         },
         child: Center(
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
                   'assets/images/logo.png',

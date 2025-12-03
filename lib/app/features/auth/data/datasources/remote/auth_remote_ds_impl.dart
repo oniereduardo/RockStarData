@@ -36,14 +36,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           phoneNumber: accessToken['phone'],
           email: accessToken['email'] ?? '',
           userId: accessToken['sub'] ?? '',
-          tokenExpiry: DateTime.fromMillisecondsSinceEpoch(accessToken['exp'] * 1000),
+          tokenExpiry:
+              DateTime.fromMillisecondsSinceEpoch(accessToken['exp'] * 1000),
         );
         print('----------------------------->>>>>>>>>>>>> $user');
         return user;
       } else if (response.statusCode == 401) {
-        throw ServerException(message: 'Invalid credentials');
+          throw ServerException(message: 'Crdenciales invalidas');
       } else {
-        throw Exception('Login failed: ${response.statusCode}');
+        throw ServerException(message: 'Login error');
       }
     } on DioException catch (e) {
       // Re-throw Dio errors with some context
